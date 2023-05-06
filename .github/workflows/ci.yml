@@ -11,10 +11,10 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      - name: Load environment variables
-        uses: jsmrcaga/actions-envfile@v1
+      - name: Set environment variables from file
+        uses: jdotenv/actions-envfile@v1
         with:
-          envfile: .env
+          filename: .env
       - name: Set version
         run: echo "VERSION=$(cat VERSION)" >> $GITHUB_ENV
       - name: Build
