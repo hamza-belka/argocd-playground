@@ -32,7 +32,7 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
       - name: Tag
-        run: docker tag my-nginx-image:${{ steps.versioning.outputs.version }} hamzabelka/playground:${{ steps.version.outputs.version }}
+        run: docker tag my-nginx-image:${{ steps.versioning.outputs.version }} hamzabelka/playground:${{ steps.versioning.outputs.version }}
       - name: Push
         run: docker push hamzabelka/playground:${{ steps.versioning.outputs.version }}
         
