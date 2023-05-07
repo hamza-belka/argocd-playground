@@ -17,6 +17,7 @@ jobs:
         with:
           fetch-depth: 0
       - name: version
+        id: versioning
         uses: paulHatch/semantic-version@v4.0.2
         with:
           branch: master
@@ -24,14 +25,14 @@ jobs:
           minor_pattern: "feat:"
           format: "${major}.${minor}.${patch}"
       - name: Build
-        run: docker build -t my-nginx-image:${{ steps.version.outputs.version }} .
+        run: docker build -t my-nginx-image:${{ steps.versioning.outputs.version }} .
       - name: Login to Docker Hub
         uses: docker/login-action@v1
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
       - name: Tag
-        run: docker tag my-nginx-image:${{ steps.version.outputs.version }} hamzabelka/playground:${{ steps.version.outputs.version }}
+        run: docker tag my-nginx-image:${{ steps.versioning.outputs.version }} hamzabelka/playground:${{ steps.version.outputs.version }}
       - name: Push
-        run: docker push hamzabelka/playground:${{ steps.version.outputs.version }}
+        run: docker push hamzabelka/playground:${{ steps.versioning.outputs.version }}
         
